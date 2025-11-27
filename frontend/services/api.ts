@@ -75,15 +75,44 @@ export async function checkFraud(payload: any) {
   }
 }
 
+
 export async function uploadStatement(file: File) {
   const formData = new FormData();
   formData.append('file', file);
-  const res = await fetch(`${API_BASE}/upload-statement`, {
-    method: 'POST',
-    body: formData,
-  });
-  if (!res.ok) throw new Error('Upload failed');
-  return await res.json();
+  // Timeout logic
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000); // 15s timeout
+  let res;
+  try {
+    res = await fetch(`${API_BASE}/upload-statement`, {
+      method: 'POST',
+      body: formData,
+      signal: controller.signal,
+    });
+  } catch (err) {
+    clearTimeout(timeout);
+    if (err.name === 'AbortError') {
+      throw new Error('Request timed out. Backend may be unreachable.');
+    }
+    throw new Error('Network error: ' + err.message);
+  }
+  clearTimeout(timeout);
+  if (!res.ok) {
+    let errorText = await res.text();
+    let errorJson;
+    try {
+      errorJson = JSON.parse(errorText);
+    } catch {}
+    if (errorJson && errorJson.detail) {
+      throw new Error('API error: ' + errorJson.detail + (errorJson.trace ? `\nTrace: ${errorJson.trace}` : ''));
+    }
+    throw new Error('Upload failed: ' + errorText);
+  }
+  try {
+    return await res.json();
+  } catch (e) {
+    throw new Error('Invalid JSON response from backend.');
+  }
 }
 
 export async function manualCompare(data: any) {

@@ -30,7 +30,11 @@ const UploadStatementModal: React.FC<{
       const data = await uploadStatement(file);
       setSummary(data.summary);
     } catch (e: any) {
-      setError('Failed to analyze statement. Please try again.');
+      // Show actual error message
+      setError(e?.message || 'Failed to analyze statement. Please try again.');
+      // Also log to console for debugging
+      // eslint-disable-next-line no-console
+      console.error('Upload error:', e);
     }
     setLoading(false);
   };

@@ -3,16 +3,16 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
 import pandas as pd
 from typing import List
-from ..core.feature_engineering import prepare_features
-from ..core.ml_model import get_fraud_scores
-from ..core.rules_engine import explain_fraud
-from ..models.transaction import Transaction
-from ..models.transaction_features import TransactionFeatures
-from ..models.fraud_result import FraudResult
-from ..models.statement_analysis_result import StatementAnalysisResult
-from ..core.sanitize import sanitize_dict
-from ..services.pdf_utils import extract_transactions_from_pdf
-from ..core.normalize import normalize_columns
+from core.feature_engineering import prepare_features
+from core.ml_model import get_fraud_scores
+from core.rules_engine import explain_fraud
+from models.transaction import Transaction
+from models.transaction_features import TransactionFeatures
+from models.fraud_result import FraudResult
+from models.statement_analysis_result import StatementAnalysisResult
+from core.sanitize import sanitize_dict
+from services.pdf_utils import extract_transactions_from_pdf
+from core.normalize import normalize_columns
 
 router = APIRouter(tags=["Fraud Detection"])
 

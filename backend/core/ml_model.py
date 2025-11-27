@@ -5,7 +5,7 @@ import pandas as pd
 from sklearn.ensemble import IsolationForest
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
-from ..config import Config
+from config import Config
 
 MODEL_PATH = Config.MODEL_PATH
 

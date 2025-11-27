@@ -4,10 +4,10 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import tempfile
 import os
-from ..services import report_generator
-from ..services.pdf_utils import extract_transactions_from_pdf
+from services import report_generator
+from services.pdf_utils import extract_transactions_from_pdf
 import pandas as pd
-from ..core.normalize import normalize_columns
+from core.normalize import normalize_columns
 
 router = APIRouter(tags=["Report"])
 
@@ -43,9 +43,9 @@ async def fraud_report(file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail=f"Failed to parse file: {e}")
     df = normalize_columns(df)
     # Feature engineering, ML, rules, etc. (reuse logic from /upload-statement)
-    from ..core.feature_engineering import prepare_features
-    from ..core.ml_model import get_fraud_scores
-    from ..core.rules_engine import explain_fraud
+    from core.feature_engineering import prepare_features
+    from core.ml_model import get_fraud_scores
+    from core.rules_engine import explain_fraud
     features_df = prepare_features(df)
     scores, probs = get_fraud_scores(features_df)
     results = []
@@ -67,7 +67,7 @@ async def fraud_report(file: UploadFile = File(...)):
         "medium_risk": risk_counts["MEDIUM"],
         "low_risk": risk_counts["LOW"]
     }
-    from ..services.report_generator import generate_pdf_report
+    from services.report_generator import generate_pdf_report
     import tempfile
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
         generate_pdf_report(summary, results, {}, None, tmp.name)

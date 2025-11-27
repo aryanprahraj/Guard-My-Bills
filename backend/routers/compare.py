@@ -2,11 +2,11 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from fastapi.responses import JSONResponse
 import pandas as pd
-from ..core.feature_engineering import prepare_features
-from ..core.ml_model import get_fraud_scores
-from ..core.rules_engine import explain_fraud
-from ..core.sanitize import sanitize_dict
-from ..services.compare_transaction import compare_transaction
+from core.feature_engineering import prepare_features
+from core.ml_model import get_fraud_scores
+from core.rules_engine import explain_fraud
+from core.sanitize import sanitize_dict
+from services.compare_transaction import compare_transaction
 
 router = APIRouter(tags=["Manual Compare"])
 

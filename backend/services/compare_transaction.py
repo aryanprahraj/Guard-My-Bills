@@ -1,8 +1,8 @@
 import pandas as pd
 from typing import Dict, Any
-from ..core.feature_engineering import prepare_features
-from ..core.ml_model import get_fraud_scores
-from ..core.rules_engine import explain_fraud
+from core.feature_engineering import prepare_features
+from core.ml_model import get_fraud_scores
+from core.rules_engine import explain_fraud
 
 def compare_transaction(suspect: dict, references: list) -> Dict[str, Any]:
 

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.routers import fraud, compare, report, health, monitoring  # Spending analysis endpoints
-from backend.core.logging_config import setup_logging
+from routers import fraud, compare, report, health, monitoring  # Spending analysis endpoints
+from core.logging_config import setup_logging
 
 app = FastAPI(title="Guard My Bills API", version="1.1.0")
 

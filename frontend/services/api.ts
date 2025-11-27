@@ -89,12 +89,15 @@ export async function uploadStatement(file: File) {
       body: formData,
       signal: controller.signal,
     });
-  } catch (err) {
+  } catch (err: unknown) {
     clearTimeout(timeout);
-    if (err.name === 'AbortError') {
+    if (typeof err === 'object' && err !== null && 'name' in err && (err as { name?: string }).name === 'AbortError') {
       throw new Error('Request timed out. Backend may be unreachable.');
     }
-    throw new Error('Network error: ' + err.message);
+    if (err instanceof Error) {
+      throw new Error('Network error: ' + err.message);
+    }
+    throw new Error('Network error');
   }
   clearTimeout(timeout);
   if (!res.ok) {

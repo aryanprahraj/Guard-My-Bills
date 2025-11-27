@@ -45,7 +45,7 @@ export interface StatementAnalysisResult {
   spending_analytics: Record<string, any>;
 }
 
-export const API_BASE = 'http://localhost:8002';
+export const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://guard-my-bills.onrender.com';
 export async function checkFraud(payload: any) {
   // Convert modal payload to backend expected format
   const req = {

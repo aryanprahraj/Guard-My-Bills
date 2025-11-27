@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import UploadStatementModal from '../components/UploadStatementModal';
 import FraudComparisonModal from '../components/FraudComparisonModal';
-import SpendingAnalysisModal from '../components/SpendingAnalysisModal';
+
 
 const Home: React.FC = () => {
   const [showUpload, setShowUpload] = useState(false);
@@ -62,7 +62,7 @@ const Home: React.FC = () => {
     {/* Modals */}
     <UploadStatementModal isOpen={showUpload} onClose={() => setShowUpload(false)} onViewResults={handleViewResults} />
     <FraudComparisonModal isOpen={showCompare} onClose={() => setShowCompare(false)} />
-    {/* SpendingAnalysisModal removed */}
+
   </div>
   );
 };

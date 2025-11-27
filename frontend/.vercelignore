@@ -1,0 +1,6 @@
+# .vercelignore
+.next
+node_modules
+*.log
+test_report.pdf
+guard_my_bills_spending_report.pdf

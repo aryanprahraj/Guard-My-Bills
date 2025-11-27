@@ -1,0 +1,14 @@
+
+fastapi
+uvicorn
+pandas
+numpy
+scikit-learn
+haversine
+python-multipart
+openpyxl
+reportlab
+matplotlib
+pytest
+geopy
+httpx

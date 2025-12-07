@@ -52,6 +52,11 @@ class FraudModel:
         if (not self.is_trained) or (self.feature_cols is None) or (set(self.feature_cols) != set(X_numeric.columns)):
             self.train(X)
         X_model = X[self.feature_cols] if self.feature_cols else X
+        
+        # Clean data: replace inf with 0 and fill NaN
+        X_model = X_model.replace([np.inf, -np.inf], 0)
+        X_model = X_model.fillna(0)
+        
         scores = -self.pipeline.decision_function(X_model)
         # Normalize to [0,1] for fraud probability
         prob = (scores - scores.min()) / (scores.max() - scores.min() + 1e-6)

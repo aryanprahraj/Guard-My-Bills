@@ -132,9 +132,12 @@ def prepare_features(transactions: pd.DataFrame) -> pd.DataFrame:
     # Night time flag
     df['is_night_time'] = df['hour_of_day'].apply(lambda h: 0 <= h < 5)
     
-    # Fill NaN values before returning
+    # Fill NaN and infinite values before returning
     numeric_columns = df.select_dtypes(include=[np.number]).columns
     for col in numeric_columns:
+        # Replace inf and -inf with 0
+        df[col] = df[col].replace([np.inf, -np.inf], np.nan)
+        # Fill NaN with 0
         if df[col].isna().any():
             df[col] = df[col].fillna(0)
     

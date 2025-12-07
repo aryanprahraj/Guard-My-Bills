@@ -13,7 +13,8 @@ RULES = [
     ('high_amount', lambda row: row.get('amount_zscore', 0) > 2.5, 'Unusually high amount (z-score > 2.5)'),
     ('first_time_city_high', lambda row: row.get('is_new_city', False) and row.get('amount_zscore', 0) > 1.5, 'First-time city with high spend'),
     ('first_time_merchant_high', lambda row: row.get('is_new_merchant', False) and row.get('amount_zscore', 0) > 1.5, 'First-time merchant with high spend'),
-    ('burst_spending', lambda row: row.get('transactions_last_10min', 0) > 3, 'Rapid burst: >3 txns in 10min')
+    ('burst_spending', lambda row: row.get('transactions_last_10min', 0) > 3, 'Rapid burst: >3 txns in 10min'),
+    ('impossible_distance_time', lambda row: row.get('min_time_delta_minutes', 0) > 0 and row.get('min_distance_km', 0) > 10 and row.get('min_time_delta_minutes', float('inf')) < row.get('min_distance_km', 0) / 10, 'Impossible distance/time combination: would require >600 km/h travel'),
 ]
 
 def explain_fraud(row, ml_score):
@@ -25,7 +26,7 @@ def explain_fraud(row, ml_score):
         except Exception:
             continue
     # Risk level
-    if ml_score >= RISK_THRESHOLDS['HIGH'] or 'Impossible travel' in reasons:
+    if ml_score >= RISK_THRESHOLDS['HIGH'] or 'Impossible travel' in ' '.join(reasons):
         risk = 'HIGH'
     elif ml_score >= RISK_THRESHOLDS['MEDIUM'] or reasons:
         risk = 'MEDIUM'

@@ -131,6 +131,13 @@ def prepare_features(transactions: pd.DataFrame) -> pd.DataFrame:
     df['merchant_category_encoded'] = df['merchant_category'].map(cat_map)
     # Night time flag
     df['is_night_time'] = df['hour_of_day'].apply(lambda h: 0 <= h < 5)
+    
+    # Fill NaN values before returning
+    numeric_columns = df.select_dtypes(include=[np.number]).columns
+    for col in numeric_columns:
+        if df[col].isna().any():
+            df[col] = df[col].fillna(0)
+    
     # Drop helper columns
     df = df.drop(columns=['latlon'])
     return df

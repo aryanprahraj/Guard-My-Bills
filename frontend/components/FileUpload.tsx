@@ -31,13 +31,13 @@ const FileUpload: React.FC<FileUploadProps> = ({ onUpload, loading }) => {
       <input
         ref={inputRef}
         type="file"
-        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/pdf, .pdf"
+        accept=".csv"
         className="hidden"
         onChange={handleFileChange}
         disabled={loading}
       />
       <div className="text-gray-700">
-        {loading ? 'Uploading...' : 'Drag & drop or click to select a CSV/XLSX/PDF file'}
+        {loading ? 'Uploading...' : 'Drag & drop or click to select a CSV file'}
       </div>
     </div>
   );

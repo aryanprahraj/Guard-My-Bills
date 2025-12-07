@@ -279,7 +279,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 [![Email](https://img.shields.io/badge/📧%20Email-aryanprahraj@gmail.com-red?style=flat-square)](mailto:aryanprahraj@gmail.com)
 [![LinkedIn](https://img.shields.io/badge/💼%20LinkedIn-Aryan%20Prahraj-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/aryan-prahraj-89545160/)
-[![Portfolio](https://img.shields.io/badge/🌐%20Portfolio-aryan-portfolio-orange?style=flat-square&logo=vercel)](https://aryan-portfolio-amber.vercel.app/)
+[![Portfolio](https://img.shields.io/badge/🌐%20Portfolio-Visit-purple?style=flat-square)](https://aryan-portfolio-amber.vercel.app/)
 [![GitHub](https://img.shields.io/badge/🐙%20GitHub-Follow-black?style=flat-square&logo=github)](https://github.com/aryanprahraj)
 
 ---
